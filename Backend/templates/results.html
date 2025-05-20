@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Reviews</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        h2 {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .recommendation {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .recommendation.buy {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .recommendation.not-buy {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .image-gallery img {
+            width: 200px;
+            height: auto;
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            object-fit: cover;
+        }
+
+        .review {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: transform 0.2s;
+        }
+
+        .review:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .reviewer {
+            font-style: italic;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .comment {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% if product_name %}
+        <h1>Product Reviews</h1>
+        <p class="product-name">{{ product_name }}</p>
+
+        {% if recommendation %}
+            <div class="recommendation {% if 'not' in recommendation.lower() %}not-buy{% else %}buy{% endif %}">
+                Recommendation: {{ recommendation }}
+            </div>
+        {% endif %}
+
+        {% if images %}
+            <div class="image-gallery">
+                {% for img_url in images %}
+                    <img src="{{ img_url }}" alt="Product Image">
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% else %}
+        {% for review in reviews %}
+            <div class="review">
+                <h2>{{ review.CommentHead }}</h2>
+                <div class="rating">
+                    <i class="fas fa-star"></i> {{ review.Rating }}
+                </div>
+                <p class="reviewer">Reviewed by: {{ review.Name }}</p>
+                <p class="comment">{{ review.Comment }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 Product Review App. All Rights Reserved.</p>
+</div>
+
+</body>
+</html>
